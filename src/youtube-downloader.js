@@ -1,8 +1,12 @@
 const {spawn} = require('child_process')
-const {youtubeBinaryPath} = require('./conf')
+const {
+  videoExtension,
+  filenameFormat,
+  youtubeBinaryPath
+} = require('./conf')
 
 const getTitle = url => {
-  return streamProcess(spawn(youtubeBinaryPath, [
+  return getStreamOutput(spawn(youtubeBinaryPath, [
     '--get-title',
     '--encoding', 'UTF-8',
     '--no-part',
@@ -11,7 +15,19 @@ const getTitle = url => {
   ]))
 }
 
-const streamProcess = process => new Promise((resolve, reject) => {
+const getFilename = url => {
+  return getStreamOutput(spawn(youtubeBinaryPath, [
+    '-o', filenameFormat,
+    '--format', videoExtension,
+    '--get-filename',
+    '--encoding', 'UTF-8',
+    '--no-part',
+    '--no-playlist',
+    url
+  ]))
+}
+
+const getStreamOutput = process => new Promise((resolve, reject) => {
   const outs = []
   process.stdout.on('data', data => outs.push(data))
 
@@ -28,5 +44,6 @@ const streamProcess = process => new Promise((resolve, reject) => {
 })
 
 module.exports = {
-  getTitle
+  getTitle,
+  getFilename
 }
