@@ -1,4 +1,10 @@
-const getProcessOutput = process => new Promise((resolve, reject) => {
+const {EventEmitter} = require('events')
+const byline = require('byline')
+
+const processOutput = process => new Promise((resolve, reject) => {
+  process.stdout.setEncoding('UTF-8')
+  process.stderr.setEncoding('UTF-8')
+
   const outs = []
   process.stdout.on('data', data => outs.push(data))
 
@@ -14,6 +20,28 @@ const getProcessOutput = process => new Promise((resolve, reject) => {
   })
 })
 
+const processDownload = process => {
+  process.stdout.setEncoding('UTF-8')
+  process.stderr.setEncoding('UTF-8')
+
+  const emitter = new EventEmitter()
+
+  byline(process.stdout).on('data', data => {
+    console.log(data)
+  })
+
+  byline(process.stderr).on('data', data => {
+    console.error(data)
+  })
+
+  process.on('close', () => {
+    emitter.emit('complete')
+  })
+
+  return emitter
+}
+
 module.exports = {
-  getProcessOutput
+  processOutput,
+  processDownload
 }

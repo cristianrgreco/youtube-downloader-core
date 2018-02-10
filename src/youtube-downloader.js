@@ -1,16 +1,24 @@
 const {spawn} = require('child_process')
-const {getProcessOutput} = require('./process-helper')
 
 const {
+  processOutput,
+  processDownload
+} = require('./process-helper')
+
+const {
+  audioExtension,
   videoExtension,
   filenameFormat,
-  youtubeBinaryPath
+  youtubeBinaryPath,
+  ffmpegBinaryPath,
+  downloadDirectory
 } = require('./conf')
 
 const getTitle = url => {
-  return getProcessOutput(
+  return processOutput(
     spawn(
-      youtubeBinaryPath, [
+      youtubeBinaryPath,
+      [
         '--get-title',
         '--encoding', 'UTF-8',
         '--no-part',
@@ -22,9 +30,10 @@ const getTitle = url => {
 }
 
 const getFilename = url => {
-  return getProcessOutput(
+  return processOutput(
     spawn(
-      youtubeBinaryPath, [
+      youtubeBinaryPath,
+      [
         '-o', filenameFormat,
         '--format', videoExtension,
         '--get-filename',
@@ -37,7 +46,44 @@ const getFilename = url => {
   )
 }
 
+const downloadVideo = url => {
+  return processDownload(
+    spawn(
+      youtubeBinaryPath,
+      [
+        '-o', filenameFormat,
+        '--format', videoExtension,
+        '--no-part',
+        '--no-playlist',
+        url
+      ],
+      {cwd: downloadDirectory}
+    )
+  )
+}
+
+const downloadAudio = url => {
+  return processDownload(
+    spawn(
+      youtubeBinaryPath,
+      [
+        '-o', filenameFormat,
+        '--format', videoExtension,
+        '--no-part',
+        '--no-playlist',
+        '--extract-audio',
+        '--audio-format', audioExtension,
+        '--ffmpeg-location', ffmpegBinaryPath,
+        url
+      ],
+      {cwd: downloadDirectory}
+    )
+  )
+}
+
 module.exports = {
   getTitle,
-  getFilename
+  getFilename,
+  downloadVideo,
+  downloadAudio
 }
