@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  logLevel: 'debug',
   audioExtension: 'mp3',
   videoExtension: 'mp4',
   filenameFormat: '%(title)s_%(id)s.%(ext)s',

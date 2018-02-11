@@ -24,7 +24,7 @@ test('emits state events when state changes', done => {
   process.emit('close')
 })
 
-test('emits progress events', done => {
+test('emits progress events while downloading', done => {
   const process = mockProcess()
   const progressEvents = []
   processDownload(process).on('progress', progress => progressEvents.push(progress))
@@ -52,7 +52,7 @@ test('emits progress events', done => {
   process.emit('close')
 })
 
-test('emits an error on completion if one occurred', done => {
+test('emits an error on completion if an error occurred', done => {
   const process = mockProcess()
 
   processDownload(process).on('error', error => {

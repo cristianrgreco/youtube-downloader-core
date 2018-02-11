@@ -1,4 +1,5 @@
 const {spawn} = require('child_process')
+const {logger} = require('./logger')
 const {processOutput} = require('./process-output')
 const {processDownload} = require('./process-download')
 
@@ -12,6 +13,7 @@ const {
 } = require('./conf')
 
 const getTitle = url => {
+  logger.info('getting title: %s', url)
   return processOutput(
     spawn(
       youtubeBinaryPath,
@@ -27,6 +29,7 @@ const getTitle = url => {
 }
 
 const getFilename = url => {
+  logger.info('getting filename: %s', url)
   return processOutput(
     spawn(
       youtubeBinaryPath,
@@ -44,6 +47,7 @@ const getFilename = url => {
 }
 
 const downloadVideo = url => {
+  logger.info('downloading video: %s', url)
   return processDownload(
     spawn(
       youtubeBinaryPath,
@@ -60,6 +64,7 @@ const downloadVideo = url => {
 }
 
 const downloadAudio = url => {
+  logger.info('downloading audio: %s', url)
   return processDownload(
     spawn(
       youtubeBinaryPath,

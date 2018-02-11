@@ -1,3 +1,5 @@
+const {logger} = require('./logger')
+
 const processOutput = process => new Promise((resolve, reject) => {
   process.stdout.setEncoding('UTF-8')
   process.stderr.setEncoding('UTF-8')
@@ -10,8 +12,11 @@ const processOutput = process => new Promise((resolve, reject) => {
 
   return process.on('close', () => {
     if (errs.length > 0) {
-      return reject(errs.join('').trim())
+      const error = errs.join('').trim()
+      logger.warn('output process complete with errors: %s', error)
+      return reject(error)
     } else {
+      logger.info('output process complete')
       return resolve(outs.join('').trim())
     }
   })
