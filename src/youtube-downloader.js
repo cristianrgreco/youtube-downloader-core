@@ -1,9 +1,6 @@
 const {spawn} = require('child_process')
-
-const {
-  processOutput,
-  processDownload
-} = require('./process-helper')
+const {processOutput} = require('./process-output')
+const {processDownload} = require('./process-download')
 
 const {
   audioExtension,

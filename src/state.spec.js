@@ -11,3 +11,7 @@ test('returns the state', () => {
   expect(getState(`[download] 100% of 9.22MiB in 00:11`)).toBe(DOWNLOADING)
   expect(getState(`[ffmpeg] Destination: RickRoll'D_oHg5SJYRHA0.mp3`)).toBe(CONVERTING)
 })
+
+test('returns null if state unknown', () => {
+  expect(getState(`Deleting original file RickRoll'D_oHg5SJYRHA0.mp4`)).toBeNull()
+})

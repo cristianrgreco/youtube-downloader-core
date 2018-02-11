@@ -1,4 +1,9 @@
-const fs = require('fs')
+const {
+  existsSync: fileExists,
+  unlinkSync: deleteFile,
+  readdirSync: getFiles
+} = require('fs')
+
 const path = require('path')
 const {downloadDirectory} = require('./conf')
 
@@ -9,7 +14,7 @@ const {
   downloadAudio
 } = require('./youtube-downloader')
 
-const getDownloadFilePath = filename => path.join(downloadDirectory, filename)
+const getPath = file => path.join(downloadDirectory, file)
 
 const urls = [
   'https://www.youtube.com/watch?gl=GB&hl=en-GB&v=oHg5SJYRHA0',
@@ -19,9 +24,9 @@ const urls = [
 jest.setTimeout(60000)
 
 afterEach(() => {
-  fs.readdirSync(downloadDirectory)
+  getFiles(downloadDirectory)
     .filter(file => !file.startsWith('.'))
-    .forEach(file => fs.unlinkSync(getDownloadFilePath(file)))
+    .forEach(file => deleteFile(getPath(file)))
 })
 
 test('returns the title', async () => {
@@ -36,7 +41,7 @@ test('returns the filename', async () => {
 test('downloads video', done => {
   downloadVideo(urls[0])
     .on('complete', () => {
-      expect(fs.existsSync(getDownloadFilePath(`RickRoll'D_oHg5SJYRHA0.mp4`))).toBe(true)
+      expect(fileExists(getPath(`RickRoll'D_oHg5SJYRHA0.mp4`))).toBe(true)
       done()
     })
 })
@@ -44,7 +49,7 @@ test('downloads video', done => {
 test('downloads audio', done => {
   downloadAudio(urls[0])
     .on('complete', () => {
-      expect(fs.existsSync(getDownloadFilePath(`RickRoll'D_oHg5SJYRHA0.mp3`))).toBe(true)
+      expect(fileExists(getPath(`RickRoll'D_oHg5SJYRHA0.mp3`))).toBe(true)
       done()
     })
 })

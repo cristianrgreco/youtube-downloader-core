@@ -12,7 +12,10 @@ const stateMatchers = [
   { state: states.CONVERTING, pattern: /^\[ffmpeg]/ }
 ]
 
-const getState = string => stateMatchers.find(matcher => matcher.pattern.test(string)).state
+const getState = string => {
+  const matcher = stateMatchers.find(matcher => matcher.pattern.test(string))
+  return matcher === undefined ? null : matcher.state
+}
 
 module.exports = {
   states,
