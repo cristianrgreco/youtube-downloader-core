@@ -4,4 +4,4 @@ module.exports = {
     "jest": true,
     "jasmine": true
   }
-};
+}
