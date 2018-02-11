@@ -1,5 +1,5 @@
 const {processDownload} = require('./process-download')
-const {mockProcess} = require('./mock-process')
+const {mockProcess} = require('./__mocks__/mock-process')
 const {states} = require('./state')
 
 test('emits state events when state changes', done => {

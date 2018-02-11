@@ -1,5 +1,5 @@
 const {processOutput} = require('./process-output')
-const {mockProcess} = require('./mock-process')
+const {mockProcess} = require('./__mocks__/mock-process')
 
 test('returns standard output', done => {
   const process = mockProcess()
