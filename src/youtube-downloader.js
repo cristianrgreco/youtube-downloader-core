@@ -20,6 +20,7 @@ const getTitle = url => {
       [
         '--get-title',
         '--encoding', 'UTF-8',
+        '--restrict-filenames',
         '--no-part',
         '--no-playlist',
         url
@@ -38,6 +39,7 @@ const getFilename = url => {
         '--format', videoExtension,
         '--get-filename',
         '--encoding', 'UTF-8',
+        '--restrict-filenames',
         '--no-part',
         '--no-playlist',
         url
@@ -54,6 +56,7 @@ const downloadVideo = url => {
       [
         '-o', filenameFormat,
         '--format', videoExtension,
+        '--restrict-filenames',
         '--no-part',
         '--no-playlist',
         url
@@ -71,6 +74,7 @@ const downloadAudio = url => {
       [
         '-o', filenameFormat,
         '--format', videoExtension,
+        '--restrict-filenames',
         '--no-part',
         '--no-playlist',
         '--extract-audio',

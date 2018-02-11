@@ -35,13 +35,13 @@ test('returns the title', async () => {
 })
 
 test('returns the filename', async () => {
-  expect(await getFilename(urls[0])).toBe(`RickRoll'D_oHg5SJYRHA0.mp4`)
+  expect(await getFilename(urls[0])).toBe(`RickRoll_D_oHg5SJYRHA0.mp4`)
 })
 
 test('downloads video', done => {
   downloadVideo(urls[0])
     .on('complete', () => {
-      expect(fileExists(getPath(`RickRoll'D_oHg5SJYRHA0.mp4`))).toBe(true)
+      expect(fileExists(getPath(`RickRoll_D_oHg5SJYRHA0.mp4`))).toBe(true)
       done()
     })
 })
@@ -49,7 +49,7 @@ test('downloads video', done => {
 test('downloads audio', done => {
   downloadAudio(urls[0])
     .on('complete', () => {
-      expect(fileExists(getPath(`RickRoll'D_oHg5SJYRHA0.mp3`))).toBe(true)
+      expect(fileExists(getPath(`RickRoll_D_oHg5SJYRHA0.mp3`))).toBe(true)
       done()
     })
 })
