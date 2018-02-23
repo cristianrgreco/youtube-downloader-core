@@ -13,7 +13,7 @@ const {
 } = require('./conf')
 
 const getTitle = url => {
-  logger.info('getting title: %s', url)
+  logger.log('info', 'getting title', {url})
   return processOutput(
     spawn(
       youtubeBinaryPath,
@@ -30,7 +30,7 @@ const getTitle = url => {
 }
 
 const getFilename = url => {
-  logger.info('getting filename: %s', url)
+  logger.log('info', 'getting filename', {url})
   return processOutput(
     spawn(
       youtubeBinaryPath,
@@ -49,7 +49,7 @@ const getFilename = url => {
 }
 
 const downloadVideo = url => {
-  logger.info('downloading video: %s', url)
+  logger.log('info', 'downloading video', {url})
   return processDownload(
     spawn(
       youtubeBinaryPath,
@@ -67,7 +67,7 @@ const downloadVideo = url => {
 }
 
 const downloadAudio = url => {
-  logger.info('downloading audio: %s', url)
+  logger.log('info', 'downloading audio', {url})
   return processDownload(
     spawn(
       youtubeBinaryPath,

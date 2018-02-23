@@ -1,5 +1,5 @@
-const {EventEmitter} = require('events')
 const byline = require('byline')
+const {EventEmitter} = require('events')
 const {logger} = require('./logger')
 const {getProgress} = require('./progress')
 
@@ -20,13 +20,13 @@ const processDownload = process => {
 
       if (newState !== null && newState !== currentState) {
         currentState = newState
-        logger.debug('emitting state event: %o', currentState)
+        logger.log('debug', 'emitting state event', currentState)
         emitter.emit('state', currentState)
       }
 
       if (newState === states.DOWNLOADING) {
         const progress = getProgress(data)
-        logger.debug('emitting progress event: %o', progress)
+        logger.log('debug', 'emitting progress event', progress)
         emitter.emit('progress', progress)
       }
     })
@@ -38,10 +38,10 @@ const processDownload = process => {
   process.on('close', () => {
     if (errs.length > 0) {
       const error = errs.join('').trim()
-      logger.warn('download process complete with errors: %s', error)
+      logger.log('warn', 'download complete with errors', {error})
       emitter.emit('error', error)
     } else {
-      logger.info('download process complete')
+      logger.log('info', 'download complete')
     }
     emitter.emit('state', states.COMPLETE)
     emitter.emit('complete')

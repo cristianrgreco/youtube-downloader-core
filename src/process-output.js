@@ -13,10 +13,10 @@ const processOutput = process => new Promise((resolve, reject) => {
   return process.on('close', () => {
     if (errs.length > 0) {
       const error = errs.join('').trim()
-      logger.warn('output process complete with errors: %s', error)
+      logger.log('warn', 'output complete with errors', {error})
       return reject(error)
     } else {
-      logger.info('output process complete')
+      logger.log('info', 'output complete')
       return resolve(outs.join('').trim())
     }
   })
