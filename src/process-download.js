@@ -20,13 +20,13 @@ const processDownload = process => {
 
       if (newState !== null && newState !== currentState) {
         currentState = newState
-        logger.log('debug', 'emitting state event', currentState)
+        logger.log('debug', 'emitting state event', {currentState})
         emitter.emit('state', currentState)
       }
 
       if (newState === states.DOWNLOADING) {
         const progress = getProgress(data)
-        logger.log('debug', 'emitting progress event', progress)
+        logger.log('debug', 'emitting progress event', {progress})
         emitter.emit('progress', progress)
       }
     })
