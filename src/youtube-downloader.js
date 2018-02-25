@@ -15,36 +15,34 @@ const {
 const getTitle = url => {
   logger.log('info', 'getting title', {url})
   return processOutput(
-    spawn(
-      youtubeBinaryPath,
-      [
-        '--get-title',
-        '--encoding', 'UTF-8',
-        '--restrict-filenames',
-        '--no-part',
-        '--no-playlist',
-        url
-      ]
-    )
+    spawn(youtubeBinaryPath, [
+      '--get-title',
+      '--encoding',
+      'UTF-8',
+      '--restrict-filenames',
+      '--no-part',
+      '--no-playlist',
+      url
+    ])
   )
 }
 
 const getFilename = url => {
   logger.log('info', 'getting filename', {url})
   return processOutput(
-    spawn(
-      youtubeBinaryPath,
-      [
-        '-o', filenameFormat,
-        '--format', videoExtension,
-        '--get-filename',
-        '--encoding', 'UTF-8',
-        '--restrict-filenames',
-        '--no-part',
-        '--no-playlist',
-        url
-      ]
-    )
+    spawn(youtubeBinaryPath, [
+      '-o',
+      filenameFormat,
+      '--format',
+      videoExtension,
+      '--get-filename',
+      '--encoding',
+      'UTF-8',
+      '--restrict-filenames',
+      '--no-part',
+      '--no-playlist',
+      url
+    ])
   )
 }
 
@@ -53,14 +51,7 @@ const downloadVideo = url => {
   return processDownload(
     spawn(
       youtubeBinaryPath,
-      [
-        '-o', filenameFormat,
-        '--format', videoExtension,
-        '--restrict-filenames',
-        '--no-part',
-        '--no-playlist',
-        url
-      ],
+      ['-o', filenameFormat, '--format', videoExtension, '--restrict-filenames', '--no-part', '--no-playlist', url],
       {cwd: downloadDirectory}
     )
   )
@@ -72,14 +63,18 @@ const downloadAudio = url => {
     spawn(
       youtubeBinaryPath,
       [
-        '-o', filenameFormat,
-        '--format', videoExtension,
+        '-o',
+        filenameFormat,
+        '--format',
+        videoExtension,
         '--restrict-filenames',
         '--no-part',
         '--no-playlist',
         '--extract-audio',
-        '--audio-format', audioExtension,
-        '--ffmpeg-location', ffmpegBinaryPath,
+        '--audio-format',
+        audioExtension,
+        '--ffmpeg-location',
+        ffmpegBinaryPath,
         url
       ],
       {cwd: downloadDirectory}

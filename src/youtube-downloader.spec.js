@@ -1,18 +1,7 @@
-const {
-  existsSync: fileExists,
-  unlinkSync: deleteFile,
-  readdirSync: getFiles
-} = require('fs')
-
+const {existsSync: fileExists, unlinkSync: deleteFile, readdirSync: getFiles} = require('fs')
 const path = require('path')
 const {downloadDirectory} = require('./conf')
-
-const {
-  getTitle,
-  getFilename,
-  downloadVideo,
-  downloadAudio
-} = require('./youtube-downloader')
+const {getTitle, getFilename, downloadVideo, downloadAudio} = require('./youtube-downloader')
 
 const getPath = file => path.join(downloadDirectory, file)
 
@@ -39,17 +28,15 @@ test('returns the filename', async () => {
 })
 
 test('downloads video', done => {
-  downloadVideo(urls[0])
-    .on('complete', () => {
-      expect(fileExists(getPath(`RickRoll_D_oHg5SJYRHA0.mp4`))).toBe(true)
-      done()
-    })
+  downloadVideo(urls[0]).on('complete', () => {
+    expect(fileExists(getPath(`RickRoll_D_oHg5SJYRHA0.mp4`))).toBe(true)
+    done()
+  })
 })
 
 test('downloads audio', done => {
-  downloadAudio(urls[0])
-    .on('complete', () => {
-      expect(fileExists(getPath(`RickRoll_D_oHg5SJYRHA0.mp3`))).toBe(true)
-      done()
-    })
+  downloadAudio(urls[0]).on('complete', () => {
+    expect(fileExists(getPath(`RickRoll_D_oHg5SJYRHA0.mp3`))).toBe(true)
+    done()
+  })
 })

@@ -8,12 +8,7 @@ test('emits state events when state changes', done => {
   processDownload(process).on('state', state => stateEvents.push(state))
 
   processDownload(process).on('complete', () => {
-    expect(stateEvents).toEqual([
-      states.RESOLVING,
-      states.DOWNLOADING,
-      states.CONVERTING,
-      states.COMPLETE
-    ])
+    expect(stateEvents).toEqual([states.RESOLVING, states.DOWNLOADING, states.CONVERTING, states.COMPLETE])
     done()
   })
 
@@ -35,7 +30,8 @@ test('emits progress events while downloading', done => {
         eta: null,
         fileSize: '9.22MiB',
         downloadSpeed: null,
-        percentageComplete: '0.0%'},
+        percentageComplete: '0.0%'
+      },
       {
         eta: '00:01',
         fileSize: '9.22MiB',

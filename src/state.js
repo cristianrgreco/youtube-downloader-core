@@ -7,9 +7,9 @@ const states = {
 }
 
 const stateMatchers = [
-  { state: states.RESOLVING, pattern: /^\[youtube]/ },
-  { state: states.DOWNLOADING, pattern: /^\[download]/ },
-  { state: states.CONVERTING, pattern: /^\[ffmpeg]/ }
+  {state: states.RESOLVING, pattern: /^\[youtube]/},
+  {state: states.DOWNLOADING, pattern: /^\[download]/},
+  {state: states.CONVERTING, pattern: /^\[ffmpeg]/}
 ]
 
 const getState = string => {

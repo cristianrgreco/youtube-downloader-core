@@ -1,7 +1,4 @@
-const {
-  getState,
-  states: {RESOLVING, DOWNLOADING, CONVERTING}
-} = require('./state')
+const {getState, states: {RESOLVING, DOWNLOADING, CONVERTING}} = require('./state')
 
 test('returns the state', () => {
   expect(getState(`[youtube] oHg5SJYRHA0: Extracting video information`)).toBe(RESOLVING)

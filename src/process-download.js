@@ -2,19 +2,15 @@ const byline = require('byline')
 const {EventEmitter} = require('events')
 const {logger} = require('./logger')
 const {getProgress} = require('./progress')
-
-const {
-  states,
-  getState
-} = require('./state')
+const {states, getState} = require('./state')
 
 const processDownload = process => {
   process.stdout.setEncoding('UTF-8')
   process.stderr.setEncoding('UTF-8')
 
-  const emitter = new EventEmitter();
+  const emitter = new EventEmitter()
 
-  (currentState => {
+  ;(currentState => {
     byline(process.stdout).on('data', data => {
       const newState = getState(data)
 
